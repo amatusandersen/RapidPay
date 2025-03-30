@@ -35,9 +35,9 @@ namespace RapidPay.Application.Services
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(TimeSpan.FromHours(1), stoppingToken);
-
                 await UpdateFeeAsync();
+
+                await Task.Delay(TimeSpan.FromHours(1), stoppingToken);
             }
         }
     }
