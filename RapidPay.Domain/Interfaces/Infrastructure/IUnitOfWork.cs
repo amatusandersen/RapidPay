@@ -5,6 +5,7 @@ namespace RapidPay.Domain.Interfaces.Infrastructure
     public interface IUnitOfWork
     {
         ICardRepository CardRepository { get; set; }
+        IAuthorizationLogRepository AuthorizationLogRepository { get; set; }
         Task SaveChangesAsync();
     }
 }

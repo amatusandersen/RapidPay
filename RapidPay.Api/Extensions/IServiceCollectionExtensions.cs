@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidPay.Application.Services.Factories;
 using RapidPay.Domain.Constants;
-using RapidPay.Domain.Enums;
 using RapidPay.Domain.Exceptions.Common;
 using RapidPay.Domain.Interfaces.Factories;
 using RapidPay.Domain.Interfaces.Infrastructure;
@@ -40,6 +39,7 @@ namespace RapidPay.Api.Extensions
 
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddScoped<ICardRepository, CardRepository>();
+            services.AddScoped<IAuthorizationLogRepository, AuthorizationLogRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -4,11 +4,10 @@ using System.Reflection;
 
 namespace RapidPay.Infrastructure.Persistence
 {
-    public class RapidPayDbContext : DbContext
+    public class RapidPayDbContext(DbContextOptions<RapidPayDbContext> options) : DbContext(options)
     {
-        public RapidPayDbContext(DbContextOptions<RapidPayDbContext> options) : base(options) { }
-
         public DbSet<Card> Cards { get; set; }
+        public DbSet<AuthorizationLog> AuthorizationLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

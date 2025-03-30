@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using RapidPay.Application.UseCases.Commands.AuthorizeCard;
 using RapidPay.Application.UseCases.Commands.CreateCard;
 
 namespace RapidPay.Api.Controllers
@@ -15,11 +16,12 @@ namespace RapidPay.Api.Controllers
             return Ok(result);
         }
 
-        // TODO
         [HttpPost("authorize")]
-        public async Task<IActionResult> AuthorizeCard()
+        public async Task<IActionResult> AuthorizeCard([FromBody] AuthorizeCardCommand command)
         {
-            return Ok();
+            var result = await mediator.Send(command);
+
+            return Ok(result);
         }
 
         // TODO

@@ -10,5 +10,7 @@ namespace RapidPay.Domain.Entities
         public decimal Balance { get; set; }
         public decimal? CreditLimit { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public List<AuthorizationLog> AuthorizationLogs { get; set; }
     }
 }
