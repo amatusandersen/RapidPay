@@ -12,8 +12,8 @@ RapidPay is a fast-growing payment provider. This project implements a payment p
   - [Setup](#setup)
   - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
-  - [Card Controller](#card-controller)
   - [Auth Controller](#auth-controller)
+  - [Card Controller](#card-controller)
 - [Running Tests](#running-tests)
 
 ## Overview
