@@ -12,8 +12,8 @@ using RapidPay.Infrastructure.Persistence;
 namespace RapidPay.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidPayDbContext))]
-    [Migration("20250330200424_Add_ManualCardUpdates")]
-    partial class Add_ManualCardUpdates
+    [Migration("20250330202040_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,6 +112,9 @@ namespace RapidPay.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("UpdatedFields")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -132,9 +135,15 @@ namespace RapidPay.Infrastructure.Migrations
                     b.Property<decimal>("FeeAmount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<Guid>("RecipientCardId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("RecipientCardNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SenderCardId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SenderCardNumber")
                         .IsRequired()
@@ -147,6 +156,10 @@ namespace RapidPay.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RecipientCardId");
+
+                    b.HasIndex("SenderCardId");
 
                     b.ToTable("Transactions");
                 });
@@ -173,11 +186,34 @@ namespace RapidPay.Infrastructure.Migrations
                     b.Navigation("Card");
                 });
 
+            modelBuilder.Entity("RapidPay.Domain.Entities.Transaction", b =>
+                {
+                    b.HasOne("RapidPay.Domain.Entities.Card", "RecipientCard")
+                        .WithMany("IncomingTransactions")
+                        .HasForeignKey("RecipientCardId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RapidPay.Domain.Entities.Card", "SenderCard")
+                        .WithMany("OutcomingTransactions")
+                        .HasForeignKey("SenderCardId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("RecipientCard");
+
+                    b.Navigation("SenderCard");
+                });
+
             modelBuilder.Entity("RapidPay.Domain.Entities.Card", b =>
                 {
                     b.Navigation("AuthorizationLogs");
 
+                    b.Navigation("IncomingTransactions");
+
                     b.Navigation("ManualUpdates");
+
+                    b.Navigation("OutcomingTransactions");
                 });
 #pragma warning restore 612, 618
         }
