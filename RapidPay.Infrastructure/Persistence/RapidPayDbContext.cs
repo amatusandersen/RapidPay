@@ -8,6 +8,8 @@ namespace RapidPay.Infrastructure.Persistence
     {
         public DbSet<Card> Cards { get; set; }
         public DbSet<AuthorizationLog> AuthorizationLogs { get; set; }
+        public DbSet<Fee> Fees { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

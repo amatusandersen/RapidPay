@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidPay.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using RapidPay.Infrastructure.Persistence;
 namespace RapidPay.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidPayDbContext))]
-    partial class RapidPayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250330182750_Add_FeeHistory")]
+    partial class Add_FeeHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,35 +92,7 @@ namespace RapidPay.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Fees");
-                });
-
-            modelBuilder.Entity("RapidPay.Domain.Entities.Transaction", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("FeeAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("RecipientCardNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SenderCardNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("TransactionAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Transactions");
+                    b.ToTable("Fee");
                 });
 
             modelBuilder.Entity("RapidPay.Domain.Entities.AuthorizationLog", b =>

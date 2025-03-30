@@ -4,6 +4,5 @@ using RapidPay.Infrastructure.Persistence.Repositories.Common;
 
 namespace RapidPay.Infrastructure.Persistence.Repositories
 {
-    public class AuthorizationLogRepository(RapidPayDbContext context)
-        : BaseRepository<AuthorizationLog>(context), IAuthorizationLogRepository;
+    public class TransactionRepository(RapidPayDbContext context) : BaseRepository<Transaction>(context), ITransactionRepository;
 }

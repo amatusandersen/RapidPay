@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RapidPay.Application.Services;
 using RapidPay.Application.Services.Factories;
 using RapidPay.Domain.Constants;
 using RapidPay.Domain.Exceptions.Common;
@@ -40,6 +41,8 @@ namespace RapidPay.Api.Extensions
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddScoped<ICardRepository, CardRepository>();
             services.AddScoped<IAuthorizationLogRepository, AuthorizationLogRepository>();
+            services.AddScoped<IFeeRepository, FeeRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -53,9 +56,11 @@ namespace RapidPay.Api.Extensions
                 options.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
             });
 
-            services.AddSingleton<Random>();
+            services.AddScoped<ICardFactory, CardFactory>();
+            services.AddScoped<IAuthorizationLogFactory, AuthorizationLogFactory>();
+            services.AddScoped<ITransactionFactory, TransactionFactory>();
 
-            services.AddSingleton<ICardFactory, CardFactory>();
+            services.AddHostedService<FeeService>();
 
             return services;
         }

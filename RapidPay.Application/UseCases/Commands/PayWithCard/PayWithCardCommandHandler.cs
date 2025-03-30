@@ -1,0 +1,62 @@
+﻿using MediatR;
+using RapidPay.Application.UseCases.Commands.AuthorizeCard;
+using RapidPay.Domain.Entities;
+using RapidPay.Domain.Exceptions.Cards;
+using RapidPay.Domain.Exceptions.Common;
+using RapidPay.Domain.Interfaces.Factories;
+using RapidPay.Domain.Interfaces.Infrastructure;
+using RapidPay.Infrastructure.Persistence.Specifications.Cards;
+using RapidPay.Infrastructure.Persistence.Specifications.Fees;
+
+namespace RapidPay.Application.UseCases.Commands.PayWithCard
+{
+    public class PayWithCardCommandHandler(IMediator mediator, ITransactionFactory transactionFactory, IUnitOfWork unitOfWork) : IRequestHandler<PayWithCardCommand, bool>
+    {
+        private readonly object _lock = new();
+        public async Task<bool> Handle(PayWithCardCommand request, CancellationToken cancellationToken)
+        {
+            await mediator.Send(new AuthorizeCardCommand(request.CardNumber), cancellationToken);
+
+            var cardByNumberSpecification = new ActiveCardSpecification(request.CardNumber);
+            var card = await unitOfWork.CardRepository.GetSingleAsync(cardByNumberSpecification)
+                ?? throw new EntityNotFoundException<Card>();
+
+            var recipientCardSpecification = new ActiveCardSpecification(request.RecipientCardNumber);
+            var recipientCard = await unitOfWork.CardRepository.GetSingleAsync(recipientCardSpecification)
+                ?? throw new EntityNotFoundException<Card>();
+
+            // calculate total payment considering current fee
+            var latestFeeSpecification = new LatestFeeSpecification();
+            var latestFee = await unitOfWork.FeeRepository.GetSingleAsync(latestFeeSpecification);
+
+            var feeMultiplier = latestFee == null ? 0 : latestFee.Amount;
+            var fee = request.PaymentAmount * feeMultiplier;
+            var totalPaymentAmount = request.PaymentAmount + fee;
+
+            lock (_lock)
+            {
+                // use credit funds if credit limit is not exceeded
+                decimal additionalCredit = card.CreditLimit ?? 0;
+                decimal availableFunds = card.Balance + additionalCredit;
+
+                if (availableFunds < totalPaymentAmount)
+                {
+                    throw new InsufficientFundsException(card.Id, request.PaymentAmount);
+                }
+
+                card.Balance -= totalPaymentAmount;
+                recipientCard.Balance += request.PaymentAmount;
+            }
+
+            var transaction = transactionFactory.Create(request.CardNumber, request.RecipientCardNumber, totalPaymentAmount, fee);
+            await unitOfWork.TransactionRepository.AddAsync(transaction);
+
+            await unitOfWork.CardRepository.UpdateAsync(card);
+            await unitOfWork.CardRepository.UpdateAsync(recipientCard);
+
+            await unitOfWork.SaveChangesAsync();
+
+            return true;
+        }
+    }
+}

@@ -3,11 +3,18 @@ using RapidPay.Domain.Interfaces.Infrastructure.Repositories;
 
 namespace RapidPay.Infrastructure.Persistence
 {
-    public class UnitOfWork(RapidPayDbContext context, ICardRepository cardRepository, IAuthorizationLogRepository authorizationLogRepository)
-        : IUnitOfWork
+    public class UnitOfWork(
+        RapidPayDbContext context,
+        ICardRepository cardRepository,
+        IAuthorizationLogRepository authorizationLogRepository,
+        IFeeRepository feeRepository,
+        ITransactionRepository transactionRepository
+    ) : IUnitOfWork
     {
         public ICardRepository CardRepository { get => cardRepository; set => cardRepository = value; }
         public IAuthorizationLogRepository AuthorizationLogRepository { get => authorizationLogRepository; set => authorizationLogRepository = value; }
+        public IFeeRepository FeeRepository { get => feeRepository; set => feeRepository = value; }
+        public ITransactionRepository TransactionRepository { get => transactionRepository; set => transactionRepository = value; }
 
         public async Task SaveChangesAsync()
         {

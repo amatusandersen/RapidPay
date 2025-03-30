@@ -4,8 +4,10 @@ using RapidPay.Domain.Interfaces.Factories;
 
 namespace RapidPay.Application.Services.Factories
 {
-    public class CardFactory(Random random) : ICardFactory
+    public class CardFactory() : ICardFactory
     {
+        private readonly Random random = new();
+
         public Card Create(decimal initialBalance, decimal? creditLimit)
         {
             var cardNumber = GenerateCardNumber();

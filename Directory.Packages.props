@@ -10,6 +10,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.3" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="8.0.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.0.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.0.0" />
