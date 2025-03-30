@@ -8,13 +8,15 @@ namespace RapidPay.Infrastructure.Persistence
         ICardRepository cardRepository,
         IAuthorizationLogRepository authorizationLogRepository,
         IFeeRepository feeRepository,
-        ITransactionRepository transactionRepository
+        ITransactionRepository transactionRepository,
+        IManualCardUpdateRepository manualCardUpdateRepository
     ) : IUnitOfWork
     {
         public ICardRepository CardRepository { get => cardRepository; set => cardRepository = value; }
         public IAuthorizationLogRepository AuthorizationLogRepository { get => authorizationLogRepository; set => authorizationLogRepository = value; }
         public IFeeRepository FeeRepository { get => feeRepository; set => feeRepository = value; }
         public ITransactionRepository TransactionRepository { get => transactionRepository; set => transactionRepository = value; }
+        public IManualCardUpdateRepository ManualCardUpdateRepository { get => manualCardUpdateRepository; set => manualCardUpdateRepository = value; }
 
         public async Task SaveChangesAsync()
         {

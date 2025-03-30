@@ -12,5 +12,6 @@ namespace RapidPay.Domain.Entities
         public DateTime CreatedAt { get; set; }
 
         public List<AuthorizationLog> AuthorizationLogs { get; set; }
+        public List<ManualCardUpdate> ManualUpdates { get; set; }
     }
 }

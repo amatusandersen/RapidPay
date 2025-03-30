@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RapidPay.Application.UseCases.Commands.AuthorizeCard;
 using RapidPay.Application.UseCases.Commands.CreateCard;
 using RapidPay.Application.UseCases.Commands.PayWithCard;
+using RapidPay.Application.UseCases.Commands.UpdateCard;
 using RapidPay.Application.UseCases.Queries.GetCardBalance;
 
 namespace RapidPay.Api.Controllers
@@ -44,11 +45,12 @@ namespace RapidPay.Api.Controllers
             return Ok(result);
         }
 
-        // TODO
-        [HttpPut("")]
-        public async Task<IActionResult> UpdateCard()
+        [HttpPatch("manual-update")]
+        public async Task<IActionResult> UpdateCard([FromBody] UpdateCardCommand command)
         {
-            return Ok();
+            var result = await mediator.Send(command);
+
+            return Ok(result);
         }
     }
 }

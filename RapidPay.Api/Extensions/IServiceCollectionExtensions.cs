@@ -43,6 +43,7 @@ namespace RapidPay.Api.Extensions
             services.AddScoped<IAuthorizationLogRepository, AuthorizationLogRepository>();
             services.AddScoped<IFeeRepository, FeeRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IManualCardUpdateRepository, ManualCardUpdateRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -59,6 +60,7 @@ namespace RapidPay.Api.Extensions
             services.AddScoped<ICardFactory, CardFactory>();
             services.AddScoped<IAuthorizationLogFactory, AuthorizationLogFactory>();
             services.AddScoped<ITransactionFactory, TransactionFactory>();
+            services.AddScoped<IManualCardUpdateFactory, ManualCardUpdateFactory>();
 
             services.AddHostedService<FeeService>();
 
