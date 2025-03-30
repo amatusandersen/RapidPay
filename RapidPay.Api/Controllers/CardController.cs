@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RapidPay.Application.UseCases.Commands.AuthorizeCard;
 using RapidPay.Application.UseCases.Commands.CreateCard;
 using RapidPay.Application.UseCases.Commands.PayWithCard;
+using RapidPay.Application.UseCases.Queries.GetCardBalance;
 
 namespace RapidPay.Api.Controllers
 {
@@ -34,9 +35,13 @@ namespace RapidPay.Api.Controllers
         }
 
         [HttpGet("{cardNumber}/balance")]
-        public async Task<IActionResult> GetCardBalance()
+        public async Task<IActionResult> GetCardBalance(string cardNumber)
         {
-            return Ok();
+            var query = new GetCardBalanceQuery(cardNumber);
+
+            var result = await mediator.Send(query);
+
+            return Ok(result);
         }
 
         // TODO
