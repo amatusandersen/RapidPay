@@ -10,6 +10,16 @@ namespace RapidPay.Infrastructure.Persistence.Configurations
         {
             builder.HasKey(t => t.Id);
 
+            builder.HasOne(t => t.SenderCard)
+                .WithMany(c => c.OutcomingTransactions)
+                .HasForeignKey(t => t.SenderCardId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(t => t.RecipientCard)
+                .WithMany(c => c.IncomingTransactions)
+                .HasForeignKey(t => t.RecipientCardId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Property(t => t.TransactionAmount).HasColumnType("decimal(18,2)");
             builder.Property(t => t.FeeAmount).HasColumnType("decimal(18,2)");
         }

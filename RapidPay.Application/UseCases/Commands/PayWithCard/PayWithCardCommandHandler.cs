@@ -18,7 +18,7 @@ namespace RapidPay.Application.UseCases.Commands.PayWithCard
             await mediator.Send(new AuthorizeCardCommand(request.CardNumber), cancellationToken);
 
             var cardByNumberSpecification = new ActiveCardSpecification(request.CardNumber);
-            var card = await unitOfWork.CardRepository.GetSingleAsync(cardByNumberSpecification)
+            var senderCard = await unitOfWork.CardRepository.GetSingleAsync(cardByNumberSpecification)
                 ?? throw new EntityNotFoundException<Card>();
 
             var recipientCardSpecification = new ActiveCardSpecification(request.RecipientCardNumber);
@@ -36,22 +36,22 @@ namespace RapidPay.Application.UseCases.Commands.PayWithCard
             lock (_lock)
             {
                 // use credit funds if credit limit is not exceeded
-                decimal additionalCredit = card.CreditLimit ?? 0;
-                decimal availableFunds = card.Balance + additionalCredit;
+                decimal additionalCredit = senderCard.CreditLimit ?? 0;
+                decimal availableFunds = senderCard.Balance + additionalCredit;
 
                 if (availableFunds < totalPaymentAmount)
                 {
-                    throw new InsufficientFundsException(card.Id, request.PaymentAmount);
+                    throw new InsufficientFundsException(senderCard.Id, request.PaymentAmount);
                 }
 
-                card.Balance -= totalPaymentAmount;
+                senderCard.Balance -= totalPaymentAmount;
                 recipientCard.Balance += request.PaymentAmount;
             }
 
-            var transaction = transactionFactory.Create(request.CardNumber, request.RecipientCardNumber, totalPaymentAmount, fee);
+            var transaction = transactionFactory.Create(senderCard, recipientCard, totalPaymentAmount, fee);
             await unitOfWork.TransactionRepository.AddAsync(transaction);
 
-            await unitOfWork.CardRepository.UpdateAsync(card);
+            await unitOfWork.CardRepository.UpdateAsync(senderCard);
             await unitOfWork.CardRepository.UpdateAsync(recipientCard);
 
             await unitOfWork.SaveChangesAsync();

@@ -13,5 +13,8 @@ namespace RapidPay.Domain.Entities
 
         public List<AuthorizationLog> AuthorizationLogs { get; set; }
         public List<ManualCardUpdate> ManualUpdates { get; set; }
+
+        public List<Transaction> OutcomingTransactions { get; set; }
+        public List<Transaction> IncomingTransactions { get; set; }
     }
 }

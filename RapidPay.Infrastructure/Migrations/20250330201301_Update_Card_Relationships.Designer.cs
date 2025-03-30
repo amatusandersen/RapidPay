@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidPay.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using RapidPay.Infrastructure.Persistence;
 namespace RapidPay.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidPayDbContext))]
-    partial class RapidPayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250330201301_Update_Card_Relationships")]
+    partial class Update_Card_Relationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

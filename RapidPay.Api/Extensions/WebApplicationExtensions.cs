@@ -13,6 +13,5 @@ namespace RapidPay.Api.Extensions
 
             await context.Database.MigrateAsync();
         }
-
     }
 }

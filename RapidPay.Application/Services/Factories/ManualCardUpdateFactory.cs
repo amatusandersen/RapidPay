@@ -15,6 +15,7 @@ namespace RapidPay.Application.Services.Factories
                 UpdatedFields = string.Join(", ", updatedFields),
                 OldValues = JsonSerializer.Serialize(oldValues),
                 NewValues = JsonSerializer.Serialize(newValues),
+                Timestamp = DateTime.UtcNow
             };
 
             return entity;

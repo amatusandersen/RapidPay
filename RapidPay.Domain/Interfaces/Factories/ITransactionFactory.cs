@@ -4,6 +4,6 @@ namespace RapidPay.Domain.Interfaces.Factories
 {
     public interface ITransactionFactory
     {
-        Transaction Create(string senderCardNumber, string recipientCardNumber, decimal transactionAmount, decimal feeAmount);
+        Transaction Create(Card senderCard, Card recipientCard, decimal transactionAmount, decimal feeAmount);
     }
 }
