@@ -7,7 +7,7 @@ using RapidPay.Domain.Interfaces.Infrastructure;
 using RapidPay.Infrastructure.Persistence.Specifications.AuthorizationLogs;
 using RapidPay.Infrastructure.Persistence.Specifications.Cards;
 
-namespace RapidPay.Application.UseCases.Commands.AuthorizeCard
+namespace RapidPay.Application.UseCases.Commands.Cards.AuthorizeCard
 {
     public class AuthorizeCardCommandHandler(IAuthorizationLogFactory logFactory, IUnitOfWork unitOfWork) : IRequestHandler<AuthorizeCardCommand, bool>
     {

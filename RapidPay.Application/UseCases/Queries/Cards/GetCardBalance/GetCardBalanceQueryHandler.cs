@@ -5,7 +5,7 @@ using RapidPay.Domain.Exceptions.Common;
 using RapidPay.Domain.Interfaces.Infrastructure;
 using RapidPay.Infrastructure.Persistence.Specifications.Cards;
 
-namespace RapidPay.Application.UseCases.Queries.GetCardBalance
+namespace RapidPay.Application.UseCases.Queries.Cards.GetCardBalance
 {
     public class GetCardBalanceQueryHandler(IUnitOfWork unitOfWork) : IRequestHandler<GetCardBalanceQuery, CardBalanceModel>
     {

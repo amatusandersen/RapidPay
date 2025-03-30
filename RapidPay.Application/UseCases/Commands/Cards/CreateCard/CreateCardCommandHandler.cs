@@ -6,7 +6,7 @@ using RapidPay.Domain.Interfaces.Factories;
 using RapidPay.Domain.Interfaces.Infrastructure;
 using RapidPay.Infrastructure.Persistence.Specifications.Cards;
 
-namespace RapidPay.Application.UseCases.Commands.CreateCard
+namespace RapidPay.Application.UseCases.Commands.Cards.CreateCard
 {
     public class CreateCardCommandHandler(IUnitOfWork unitOfWork, ICardFactory cardFactory) : IRequestHandler<CreateCardCommand, CardModel>
     {

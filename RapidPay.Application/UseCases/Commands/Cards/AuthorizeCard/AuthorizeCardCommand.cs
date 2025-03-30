@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace RapidPay.Application.UseCases.Commands.AuthorizeCard
+namespace RapidPay.Application.UseCases.Commands.Cards.AuthorizeCard
 {
     public class AuthorizeCardCommand(string cardNumber) : IRequest<bool>
     {

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using RapidPay.Application.UseCases.Commands.AuthorizeCard;
+using RapidPay.Application.UseCases.Commands.Cards.AuthorizeCard;
 using RapidPay.Domain.Entities;
 using RapidPay.Domain.Exceptions.Cards;
 using RapidPay.Domain.Exceptions.Common;
@@ -8,7 +8,7 @@ using RapidPay.Domain.Interfaces.Infrastructure;
 using RapidPay.Infrastructure.Persistence.Specifications.Cards;
 using RapidPay.Infrastructure.Persistence.Specifications.Fees;
 
-namespace RapidPay.Application.UseCases.Commands.PayWithCard
+namespace RapidPay.Application.UseCases.Commands.Cards.PayWithCard
 {
     public class PayWithCardCommandHandler(IMediator mediator, ITransactionFactory transactionFactory, IUnitOfWork unitOfWork) : IRequestHandler<PayWithCardCommand, bool>
     {

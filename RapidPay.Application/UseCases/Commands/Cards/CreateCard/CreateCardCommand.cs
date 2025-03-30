@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using RapidPay.Application.Dtos;
 
-namespace RapidPay.Application.UseCases.Commands.CreateCard
+namespace RapidPay.Application.UseCases.Commands.Cards.CreateCard
 {
     public class CreateCardCommand(decimal initialBalance, decimal? creditLimit)
         : IRequest<CardModel>

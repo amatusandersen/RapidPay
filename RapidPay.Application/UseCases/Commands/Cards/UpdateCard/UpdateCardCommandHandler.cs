@@ -7,7 +7,7 @@ using RapidPay.Domain.Interfaces.Factories;
 using RapidPay.Domain.Interfaces.Infrastructure;
 using RapidPay.Infrastructure.Persistence.Specifications.Cards;
 
-namespace RapidPay.Application.UseCases.Commands.UpdateCard
+namespace RapidPay.Application.UseCases.Commands.Cards.UpdateCard
 {
     public class UpdateCardCommandHandler(IUnitOfWork unitOfWork, IManualCardUpdateFactory updateFactory) : IRequestHandler<UpdateCardCommand, CardModel>
     {

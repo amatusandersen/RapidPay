@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RapidPay.Application.UseCases.Commands.AuthorizeCard;
-using RapidPay.Application.UseCases.Commands.CreateCard;
-using RapidPay.Application.UseCases.Commands.PayWithCard;
-using RapidPay.Application.UseCases.Commands.UpdateCard;
-using RapidPay.Application.UseCases.Queries.GetCardBalance;
+using RapidPay.Application.UseCases.Commands.Cards.AuthorizeCard;
+using RapidPay.Application.UseCases.Commands.Cards.CreateCard;
+using RapidPay.Application.UseCases.Commands.Cards.PayWithCard;
+using RapidPay.Application.UseCases.Commands.Cards.UpdateCard;
+using RapidPay.Application.UseCases.Queries.Cards.GetCardBalance;
 
 namespace RapidPay.Api.Controllers
 {

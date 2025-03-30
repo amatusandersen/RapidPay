@@ -2,7 +2,7 @@
 using RapidPay.Application.Dtos;
 using RapidPay.Domain.Enums;
 
-namespace RapidPay.Application.UseCases.Commands.UpdateCard
+namespace RapidPay.Application.UseCases.Commands.Cards.UpdateCard
 {
     public class UpdateCardCommand(string cardNumber, decimal? newBalance, decimal? newCreditLimit, CardStatus? newCardStatus) : IRequest<CardModel>
     {
