@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RapidPay.Application.UseCases.Commands.Cards.AuthorizeCard;
 using RapidPay.Application.UseCases.Commands.Cards.CreateCard;
@@ -8,6 +9,7 @@ using RapidPay.Application.UseCases.Queries.Cards.GetCardBalance;
 
 namespace RapidPay.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     public class CardController(IMediator mediator) : ControllerBase
     {
